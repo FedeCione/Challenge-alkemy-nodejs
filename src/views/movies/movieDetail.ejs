@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<%- include("../partials/head") %>
+
+    <body>
+        <%- include("../sidebar") %>
+            <div class="detail-div">
+                <h2><%- movie.titulo %></h2>
+
+                <div class="detail-img-div">
+                    <img class="detail-img" src="/images/movies/<%- movie.imagen_pelicula_serie %>" alt="Imagen de la pelicula">
+                </div>
+
+                <p>Fecha de creacion: <%- movie.fecha_creacion %></p>
+
+                <p>Calificación: <%- movie.calificacion %></p>
+
+                <p>Genero: <%- movie.movie_genre.nombre %></p>
+
+                <p>
+                    Personajes Asociadas: 
+                    <% arrayCharacters.forEach(character => { %>
+                     | <%- character %> 
+                    <% }) %>
+                </p>
+
+                <button type="submit" class="buttons"><a href="/movies/edit/<%- movie.id %>">Editar</a></button>
+
+                <form action="/movies/delete/<%- movie.id %>?_method=DELETE" method="post">
+                    <button type="submit" class="buttons">Eliminar</button>
+                </form>
+            </div>
+    </body>
+
+</html>

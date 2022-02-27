@@ -1,0 +1,15 @@
+<form class="search" action="/movies/search" method="GET">
+    <input type="text" name="title" placeholder="Escribe aqui el titulo..." class="search-input">
+    <select name="genre" id="genre" class="search-input">
+        <option selected hidden value="">Seleccionar genero</option>
+        <% genres.forEach(genre=> { %>
+        <option value="<%- genre.id %>"><%- genre.nombre %></option>
+        <% }) %>
+      </select>
+    <select name="order" class="search-input">
+      <option selected hidden value="">Selecciona el orden</option>
+      <option  value="ASC">Ascendente</option>
+      <option  value="DESC">Descendente</option>
+    </select>
+    <button class="search-button">Buscar</button>
+</form>

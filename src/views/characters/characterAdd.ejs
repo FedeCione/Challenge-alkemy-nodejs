@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <%- include("../partials/head") %>
+
+  <body>
+    <%- include("../sidebar") %>
+    <div class="div-form">
+      <form
+        action="/characters/add"
+        method="POST"
+        enctype="multipart/form-data"
+        class="form"
+      >
+        Nombre:<label for="name">
+          <input
+            type="text"
+            name="nombre"
+            placeholder="Nombre del personaje"
+            id="name"
+            class="search-input"
+          />
+        </label>
+        Edad:<label for="age">
+          <input
+            type="number"
+            name="edad"
+            placeholder="Edad del personaje"
+            id="age"
+            class="search-input"
+          />
+        </label>
+        Peso:<label for="weight">
+          <input
+            type="number"
+            name="peso"
+            placeholder="Peso del personaje"
+            id="weight"
+            class="search-input"
+          />
+        </label>
+        Historia:<label for="history">
+          <input
+            type="text"
+            name="historia"
+            placeholder="Historia del personaje"
+            id="history"
+            class="search-input"
+          />
+        </label>
+        Imagen:<label for="character-image">
+          <input
+            type="file"
+            name="imagen_personaje"
+            id="character-image"
+            class="search-input"
+          />
+        </label>
+        Peliculas/Series Asociadas:
+        <div class="checkbox-container">
+          <% movies.forEach(movie => { %>
+          <label class="checkbox-label">
+            <input
+              class="checkbox-input"
+              name="id_movies_asociated"
+              type="checkbox"
+              value="<%- movie.id %>"
+            /><%- movie.titulo %>
+          </label>
+          <% }) %>
+        </div>
+        <button type="submit" class="search-button">Agregar</button>
+      </form>
+    </div>
+  </body>
+</html>

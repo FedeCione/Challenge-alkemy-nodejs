@@ -1,0 +1,31 @@
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+}
+
+body {
+  background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/images/disney-background.png');
+  height: 100vh;
+  background-size: cover;
+  overflow: scroll;
+}
+
+a {
+  color: var(--colour-four);
+  text-decoration: none;
+}
+
+#sidebar a:hover {
+  color: var(--colour-three);
+}
+
+.text-danger {
+  color:rgb(250, 89, 89);
+}
+
+button:hover {
+  background-color: var(--colour-two);
+}

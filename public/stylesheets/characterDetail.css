@@ -1,0 +1,42 @@
+.detail-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    left: 240px;
+    top: 20px;
+    width: fit-content;
+    border: 2px solid white;
+    color: gainsboro;
+    max-width: 100vh;
+    background-color: black;
+}
+
+.detail-div form {
+    width: 100%;
+}
+
+.detail-img-div {
+    width: 300px;
+    border-top: 2px solid white;
+    border-bottom: 2px solid white;
+}
+
+.detail-img {
+    width: 100%;
+}
+
+form .buttons {
+    color: var(--colour-four);
+}
+
+.detail-div p {
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+    border-bottom: 2px solid white;
+}
+
+.buttons a {
+    padding: 2px 129px;
+}

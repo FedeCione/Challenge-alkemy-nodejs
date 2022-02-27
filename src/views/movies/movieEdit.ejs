@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <%- include("../partials/head") %>
+
+  <body>
+    <%- include("../sidebar") %>
+    <div class="div-form">
+      <form
+        action="/movies/edit/<%= movie.id %>?_method=PUT"
+        method="POST"
+        enctype="multipart/form-data"
+        class="form"
+      >
+        Titulo:<label for="title">
+          <input
+            class="search-input"
+            value="<%- movie.titulo %>"
+            type="text"
+            name="titulo"
+            placeholder="Titulo de la pelicula/serie"
+            id="title"
+          />
+        </label>
+        Fecha de creacion:<label for="creation_date">
+          <input
+            class="search-input"
+            value="<%- movie.fecha_creacion %>"
+            type="date"
+            name="fecha_creacion"
+            placeholder="Fecha de creacion"
+            id="creation_date"
+          />
+        </label>
+        Calificación:<label for="qualification">
+          <input
+            class="search-input"
+            value="<%- movie.calificacion %>"
+            type="number"
+            name="calificacion"
+            placeholder="Calificacion"
+            id="qualification"
+          />
+        </label>
+        Genero:<label for="genre">
+          <select name="id_genero" id="genre" class="search-input">
+            <% genres.forEach(genre=> { %>
+            <option value="<%- genre.id %>" <%- genre.id == movie.id_genero ? "selected" : "" %>><%- genre.nombre %></option>
+            <% }) %>
+          </select>
+        </label>
+        Imagen:<label for="movie-image">
+          <input type="file" name="imagen_pelicula_serie" id="movie-image" class="search-input"/>
+        </label>
+        Personajes Asociados:
+        <div class="checkbox-container">
+          <% characters.forEach(character => { %>
+          <label class="checkbox-label">
+            <input
+              class="checkbox-input"
+              name="id_characters_asociated"
+              type="checkbox"
+              value="<%- character.id %>"
+              <% asociatedCharacters.forEach(asociatedCharacters => { %>
+              <%- asociatedCharacters.id_personaje == character.id ? "checked" : "" %>
+              <% }) %>
+            /><%- character.nombre %>
+          </label>
+          <% }) %>
+        </div>
+
+        <button type="submit" class="search-button">Confirmar</button>
+      </form>
+    </div>
+  </body>
+</html>
+
+</html>

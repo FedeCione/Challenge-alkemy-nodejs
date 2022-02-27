@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <%- include("../partials/head") %>
+
+  <body>
+    <%- include("../sidebar") %>
+    <div class="detail-div">
+      <h2><%- character.nombre %></h2>
+
+      <div class="detail-img-div">
+        <img
+          class="detail-img"
+          src="/images/characters/<%- character.imagen_personaje %>"
+          alt="Imagen del personaje"
+        />
+      </div>
+
+      <p>Edad: <%- character.edad %></p>
+
+      <p>Peso: <%- character.peso %></p>
+
+      <p>Historia: <%- character.historia %></p>
+
+      <p>
+        Peliculas/Series Asociadas: 
+        <% arrayMovies.forEach(movie => { %>
+         | <%- movie %>
+        <% }) %>
+      </p>
+
+      <button type="submit" class="buttons">
+        <a href="/characters/edit/<%- character.id %>">Editar</a>
+      </button>
+
+      <form
+        action="/characters/delete/<%- character.id %>?_method=DELETE"
+        method="post"
+      >
+        <button type="submit" class="buttons">Eliminar</button>
+      </form>
+    </div>
+  </body>
+</html>

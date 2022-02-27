@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <%- include("../partials/head") %>
+
+  <body>
+    <%- include("../sidebar") %> <%- include("../partials/characterSearch") %>
+    <div class="characters-div">
+      <% data.forEach(character => { %>
+      <div class="character-card">
+        <h2><%- character.nombre %></h2>
+        <img
+          style="width:160px; height:160px"
+          src="/images/characters/<%- character.imagen_personaje %>"
+          alt="Imagen del personaje"
+        />
+
+        <button type="submit" class="buttons">
+          <a href="/characters/detail/<%- character.id %>">Detalles</a>
+        </button>
+
+        <button type="submit" class="buttons">
+          <a href="/characters/edit/<%- character.id %>">Editar</a>
+        </button>
+
+        <form
+          action="/characters/delete/<%- character.id %>?_method=DELETE"
+          method="post"
+        >
+          <button type="submit" class="buttons">Eliminar</button>
+        </form>
+      </div>
+      <% }) %>
+    </div>
+  </body>
+</html>

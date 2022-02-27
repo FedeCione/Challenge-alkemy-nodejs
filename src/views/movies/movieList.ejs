@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <%- include("../partials/head") %>
+
+  <body>
+    <%- include("../sidebar") %> <%- include("../partials/movieSearch") %>
+    <div class="characters-div">
+      <% data.forEach(movie => { %>
+      <div class="character-card">
+        <h2><%- movie.titulo %></h2>
+        <img
+          style="width:180px; height:180px"
+          src="/images/movies/<%- movie.imagen_pelicula_serie %>"
+          alt="Imagen de la pelicula o serie"
+        />
+
+        <button type="submit" class="buttons">
+          <a href="/movies/detail/<%- movie.id %>">Detalles</a>
+        </button>
+
+        <button type="submit" class="buttons">
+          <a href="/movies/edit/<%- movie.id %>">Editar</a>
+        </button>
+
+        <form
+          action="/movies/delete/<%- movie.id %>?_method=DELETE"
+          method="post"
+        >
+          <button type="submit" class="buttons">Eliminar</button>
+        </form>
+      </div>
+      <% }) %>
+    </div>
+  </body>
+</html>

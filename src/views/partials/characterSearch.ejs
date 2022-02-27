@@ -1,0 +1,12 @@
+<form class="search" action="/characters/search" method="GET">
+    <input type="text" name="name" placeholder="Escribe aqui el nombre..." class="search-input">
+    <input type="number" name="age" placeholder="Escribe aqui la edad..." class="search-input">
+    <input type="number" name="weight" placeholder="Escribe aqui el peso..." class="search-input">
+    <select name="movies" class="search-input">
+        <option selected hidden value="">Seleccione una película o serie </option>
+        <% movies.forEach(movie => { %>
+            <option value="<%- movie.id %>" ><%- movie.titulo %></option>
+        <% }) %>
+    </select>
+    <button class="search-button">Buscar</button>
+</form>

@@ -1,0 +1,49 @@
+.div-form {
+  position: relative;
+  left: 220px;
+  top: 10px;
+  color: gainsboro;
+  width: fit-content;
+}
+
+.form input {
+  height: 30px;
+  padding: 18px;
+  border-radius: 50px;
+}
+
+.form .buttons {
+  width: 100%;
+  border-radius: 10px;
+  height: 46px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.checkbox-container {
+  background-color: var(--colour-one);;
+  min-width: 400px;
+  height: 120px;
+  border-radius: 15px;
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+}
+
+.checkbox-label {
+  height: 17px;
+  margin: 3px;
+}
+
+.checkbox-input {
+  float: left;
+  width: 16px;
+  margin: 0 5px 0 10px;
+  position: relative;
+  bottom: 6px;
+}

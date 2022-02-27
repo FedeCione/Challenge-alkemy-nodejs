@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<%- include("../partials/head") %>
+
+    <body>
+        <%- include("../sidebar") %>
+            <div class="div-form">
+                <form action="/auth/login" method="POST" enctype="application/x-www-form-urlencoded" class="form">
+                    Email:<label for="email">
+                        <input type="text" name="email" placeholder="Direccion de email" id="email" class="search-input"/>
+                    </label>
+                    <% if (locals.errors && errors.email) { %>
+                        <small class="text-danger"><%= errors.email.msg %> </small>
+                     <% } %>
+
+                    Contraseña:<label for="password">
+                        <input type="password" name="password" id="password" placeholder="Contraseña" class="search-input"/>
+                    </label>
+                    <% if (locals.errors && errors.password) { %>
+                        <small class="text-danger"><%= errors.password.msg %> </small>
+                     <% } %>
+
+                    <button type="submit" class="search-button">Login</button>
+                </form>
+            </div>
+    </body>
+
+</html>

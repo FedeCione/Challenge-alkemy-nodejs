@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<%- include("../partials/head") %>
+
+    <body>
+        <%- include("../sidebar") %>
+            <div class="div-form">
+                <form action="/genres/add" method="POST" enctype="multipart/form-data" class="form">
+                    Nombre:<label for="name">
+                        <input type="text" name="nombre" placeholder="Nombre del genero" id="name" class="search-input"/>
+                    </label>
+                    Imagen:<label for="genre-image">
+                        <input type="file" name="imagen_genero" id="genre-image" class="search-input"/>
+                    </label>
+                    <button type="submit" class="search-button">Agregar</button>
+                </form>
+            </div>
+    </body>
+
+</html>

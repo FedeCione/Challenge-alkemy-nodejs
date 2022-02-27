@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <%- include("../partials/head") %>
+
+  <body>
+    <%- include("../sidebar") %>
+    <div class="div-form">
+      <form
+        action="/movies/add"
+        method="POST"
+        enctype="multipart/form-data"
+        class="form"
+      >
+        Titulo:<label for="title">
+          <input
+            class="search-input"
+            type="text"
+            name="titulo"
+            placeholder="Titulo de la pelicula/serie"
+            id="title"
+          />
+        </label>
+        Fecha de creacion:<label for="creation_date">
+          <input
+            class="search-input"
+            type="date"
+            name="fecha_creacion"
+            placeholder="Fecha de creacion"
+            id="creation_date"
+          />
+        </label>
+        Calificación:<label for="qualification">
+          <select name="calificacion" id="qualification" class="search-input">
+            <option selected hidden value="">Seleccionar calificacion</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </label>
+        Genero:<label for="genre">
+          <select name="id_genero" id="genre" class="search-input">
+            <option selected hidden value="">Seleccionar genero</option>
+            <% genres.forEach(genre=> { %>
+            <option value="<%- genre.id %>"><%- genre.nombre %></option>
+            <% }) %>
+          </select>
+        </label>
+        Imagen:<label for="movie-image">
+          <input type="file" name="imagen_pelicula_serie" id="movie-image" class="search-input"/>
+        </label>
+        Peliculas/Series Asociadas:
+        <div class="checkbox-container">
+          <% characters.forEach(character => { %>
+          <label class="checkbox-label">
+            <input
+              class="checkbox-input"
+              name="id_characters_asociated"
+              type="checkbox"
+              value="<%- character.id %>"
+            /><%- character.nombre %>
+          </label>
+          <% }) %>
+        </div>
+
+        <button type="submit" class="search-button">Agregar</button>
+      </form>
+    </div>
+  </body>
+</html>

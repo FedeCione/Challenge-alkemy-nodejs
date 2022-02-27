@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <%- include("../partials/head") %>
+
+  <body>
+    <%- include("../sidebar") %>
+    <div class="detail-div">
+      <h2><%- genre.nombre %></h2>
+
+      <div class="detail-img-div">
+        <img
+          class="detail-img"
+          src="/images/genres/<%- genre.imagen_genero %>"
+          alt="Imagen del genero"
+        />
+      </div>
+
+      <p>
+        Peliculas/Series Asociadas: 
+        <% moviesAsociated.forEach(movieAsociated => { %>
+            <%- movieAsociated.titulo %>
+        <% }) %>
+      </p>
+
+      <button type="submit" class="buttons">
+        <a href="/genres/edit/<%- genre.id %>">Editar</a>
+      </button>
+
+      <form
+        action="/genres/delete/<%- genre.id %>?_method=DELETE"
+        method="post"
+      >
+        <button type="submit" class="buttons">Eliminar</button>
+      </form>
+    </div>
+  </body>
+</html>

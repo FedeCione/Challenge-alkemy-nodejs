@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <%- include("../partials/head") %>
+
+  <body>
+    <%- include("../sidebar") %>
+    <div class="characters-div">
+      <% data.forEach(genre => { %>
+      <div class="character-card">
+        <h2><%- genre.nombre %></h2>
+        <img style="width:100px; height:90px" src="/images/genres/<%-
+        genre.imagen_genero %>" alt="Imagen del genero" />
+
+        <button type="submit" class="buttons">
+          <a href="/genres/detail/<%- genre.id %>">Detalles</a>
+        </button>
+
+        <button type="submit" class="buttons">
+          <a href="/genres/edit/<%- genre.id %>">Editar</a>
+        </button>
+
+        <form
+          action="/genres/delete/<%- genre.id %>?_method=DELETE"
+          method="post"
+        >
+          <button type="submit" class="buttons">Eliminar</button>
+        </form>
+      </div>
+      <% }) %>
+    </div>
+  </body>
+</html>
