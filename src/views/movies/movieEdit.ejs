@@ -21,6 +21,10 @@
             id="title"
           />
         </label>
+        <% if (locals.errors && errors.titulo) { %>
+          <small class="text-danger"><%= errors.titulo.msg %> </small>
+        <% } %>
+
         Fecha de creacion:<label for="creation_date">
           <input
             class="search-input"
@@ -31,6 +35,10 @@
             id="creation_date"
           />
         </label>
+        <% if (locals.errors && errors.fecha_creacion) { %>
+          <small class="text-danger"><%= errors.fecha_creacion.msg %> </small>
+        <% } %>
+
         Calificación:<label for="qualification">
           <input
             class="search-input"
@@ -41,6 +49,10 @@
             id="qualification"
           />
         </label>
+        <% if (locals.errors && errors.calificacion) { %>
+          <small class="text-danger"><%= errors.calificacion.msg %> </small>
+        <% } %>
+
         Genero:<label for="genre">
           <select name="id_genero" id="genre" class="search-input">
             <% genres.forEach(genre=> { %>
@@ -48,9 +60,20 @@
             <% }) %>
           </select>
         </label>
+        <% if (locals.errors && errors.id_genero) { %>
+          <small class="text-danger"><%= errors.id_genero.msg %> </small>
+        <% } %>
+
         Imagen:<label for="movie-image">
           <input type="file" name="imagen_pelicula_serie" id="movie-image" class="search-input"/>
         </label>
+        <% if (locals && locals.fileEmpty) { %>
+          <small class="text-danger"><%- locals.fileEmpty %></small>
+        <% } %>
+        <% if (locals && locals.fileError) { %>
+          <small class="text-danger"><%- locals.fileError %></small>
+        <% } %>
+        
         Personajes Asociados:
         <div class="checkbox-container">
           <% characters.forEach(character => { %>

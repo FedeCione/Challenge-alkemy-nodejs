@@ -8,7 +8,7 @@
   "dependencies": {
     "@sendgrid/mail": "^7.6.1",
     "bcryptjs": "^2.4.3",
-    "cookie-parser": "~1.4.4",
+    "cookie-parser": "^1.4.6",
     "debug": "~2.6.9",
     "dotenv": "^16.0.0",
     "ejs": "~2.6.1",

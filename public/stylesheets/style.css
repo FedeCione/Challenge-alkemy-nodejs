@@ -29,3 +29,10 @@ a {
 button:hover {
   background-color: var(--colour-two);
 }
+
+.title-index {
+    position: relative;
+    left: 50vh;
+    top: 40vh;
+    color: white;
+}

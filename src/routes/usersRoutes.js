@@ -1,15 +1,17 @@
 let express = require('express');
 let router = express.Router();
-let { formLogin, login, formRegister, register } = require('../controllers/usersController');
+let { formLogin, login, logout, formRegister, register } = require('../controllers/usersController');
 let loginValidator = require('../validations/loginValidator');
 let registerValidator = require('../validations/registerValidator');
+let cookieCheck = require('../middlewares/cookieCheck');
 
 // Login
-router.get('/login', formLogin);
-router.post('/login', loginValidator, login);
+router.get('/login', cookieCheck, formLogin);
+router.post('/login', cookieCheck, loginValidator, login);
+router.get('/logout', logout);
 
 // Register
-router.get('/register', formRegister);
-router.post('/register', registerValidator, register);
+router.get('/register', cookieCheck, formRegister);
+router.post('/register', cookieCheck, registerValidator, register);
 
 module.exports = router;

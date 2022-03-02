@@ -10,6 +10,14 @@ const storage = multer.diskStorage({
   },
 });
 
-let uploadFile = multer({ storage });
+const fileFilter = function(req, file,callback) {
+  if(!file.originalname.match(/\.(jpg|jpeg|png)$/)){
+      req.fileValidationError = "Sólo imágenes (.jpg | .jpeg | .png)";
+      return callback(null,false,req.fileValidationError);
+  }
+  callback(null,true);
+}
+
+let uploadFile = multer({ storage, fileFilter });
 
 module.exports = uploadFile;

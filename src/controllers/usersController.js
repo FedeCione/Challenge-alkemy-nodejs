@@ -3,7 +3,6 @@ const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const sgMail = require("@sendgrid/mail");
-
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 module.exports = {
@@ -20,16 +19,16 @@ module.exports = {
         where: {
           email,
         },
-      }).then((userToLogin) => {
+      }).then(() => {
         const user = {
           email: email,
         };
         jwt.sign(
           user,
           process.env.SECRET,
-          { expiresIn: "1800s" },
           (er, token) => {
-            res.json(token);
+            res.cookie('token', token, { expires: new Date(Date.now() + 900000), httpOnly: true });
+            res.redirect('/');
           }
         );
       });
@@ -38,6 +37,12 @@ module.exports = {
         errors: errors.mapped(),
       });
     }
+  },
+  logout: (req, res) => {
+    if (req.cookies.token) {
+        res.cookie('token', '', { maxAge: -1 })
+    }
+    res.redirect('/auth/login');
   },
   formRegister: (req, res) => {
     res.render("users/userRegister");

@@ -1,7 +1,7 @@
 <div id="sidebar">
     <ul>
         <li>
-            <img src="/images/disney-logo.png" alt="Disney logo" class="logo">
+            <a href="/"><img src="/images/disney-logo.png" alt="Disney logo" class="logo"></a>
         </li>
         <li><a href="http://localhost:3000/characters">Lista de personajes</a></li>
         <li><a href="http://localhost:3000/characters/add">Agregar personaje</a></li>
@@ -12,8 +12,13 @@
         <li><a href="http://localhost:3000/genres">Lista de generos</a></li>
         <li><a href="http://localhost:3000/genres/add">Agregar genero</a></li>
 
-        <li><a href="http://localhost:3000/auth/login">Login</a></li>
-        <li><a href="http://localhost:3000/auth/register">Registrarse</a></li>
+        <% if(locals.token) { %>
+            <li><a href="http://localhost:3000/auth/logout">Logout</a></li>
+        <% } else { %>
+            <li><a href="http://localhost:3000/auth/login">Login</a></li>
+            <li><a href="http://localhost:3000/auth/register">Registrarse</a></li>
+        <% } %>
+
         
     </ul>
 </div>

@@ -1,6 +1,7 @@
 const db = require("../database/models");
 const fs = require("fs");
 const { Op } = require("sequelize");
+const { validationResult } = require("express-validator");
 
 module.exports = {
   characterList: (req, res) => {
@@ -35,33 +36,50 @@ module.exports = {
       .catch((error) => console.log(error));
   },
   characterAdd: (req, res) => {
-    let { nombre, edad, peso, historia, id_movies_asociated } = req.body;
-    let arrayMovies = [];
-    if (id_movies_asociated instanceof Array) {
-      id_movies_asociated.forEach((item) => {
-        arrayMovies.push(item);
-      });
-    } else {
-      arrayMovies.push(id_movies_asociated);
-    }
+    let errors = validationResult(req);
 
-    db.Characters.create({
-      nombre,
-      edad,
-      peso,
-      historia,
-      imagen_personaje: req.file.filename,
-    })
-      .then((result) => {
-        arrayMovies.forEach((movie) => {
-          db.CharacterMoviePivots.create({
-            id_personaje: result.id,
-            id_pelicula_serie: movie,
-          });
+    if (errors.isEmpty() && req.file) {
+      let { nombre, edad, peso, historia, id_movies_asociated } = req.body;
+      let arrayMovies = [];
+      if (id_movies_asociated instanceof Array) {
+        id_movies_asociated.forEach((item) => {
+          arrayMovies.push(item);
         });
-        res.redirect("/characters");
+      } else {
+        arrayMovies.push(id_movies_asociated);
+      }
+
+      db.Characters.create({
+        nombre,
+        edad,
+        peso,
+        historia,
+        imagen_personaje: req.file && req.file.filename,
       })
-      .catch((error) => console.log(error));
+        .then((result) => {
+          arrayMovies.forEach((movie) => {
+            db.CharacterMoviePivots.create({
+              id_personaje: result.id,
+              id_pelicula_serie: movie,
+            });
+          });
+          res.redirect("/characters");
+        })
+        .catch((error) => console.log(error));
+    } else {
+      db.Movies.findAll()
+        .then((movies) => {
+          let fileEmpty = "Debes colocar una imagen";
+          res.render("characters/characterAdd", {
+            movies,
+            errors: errors.mapped(),
+            fileEmpty,
+            fileError: req.fileValidationError,
+            old: req.body,
+          });
+        })
+        .catch((error) => console.log(error));
+    }
   },
   formCharacterEdit: (req, res) => {
     db.Characters.findByPk(req.params.id)
@@ -87,59 +105,86 @@ module.exports = {
       .catch((error) => console.log(error));
   },
   characterEdit: (req, res) => {
-    let { nombre, edad, peso, historia, id_movies_asociated } = req.body;
-    let arrayMovies = [];
-    if (id_movies_asociated instanceof Array) {
-      id_movies_asociated.forEach((item) => {
-        arrayMovies.push(item);
-      });
-    } else {
-      arrayMovies.push(id_movies_asociated);
-    }
-    db.Characters.findByPk(req.params.id)
-      .then((character) => {
-        let oldImage = character.imagen_personaje;
-        db.Characters.update(
-          {
-            nombre,
-            edad,
-            peso,
-            historia,
-            imagen_personaje: req.file && req.file.filename,
-          },
-          {
-            where: {
-              id: req.params.id,
+    let errors = validationResult(req);
+
+    if (errors.isEmpty() && !req.fileValidationError) {
+      let { nombre, edad, peso, historia, id_movies_asociated } = req.body;
+      let arrayMovies = [];
+      if (id_movies_asociated instanceof Array) {
+        arrayMovies.push(...id_movies_asociated);
+      } else {
+        arrayMovies.push(id_movies_asociated);
+      }
+      db.Characters.findByPk(req.params.id)
+        .then((character) => {
+          let oldImage = character.imagen_personaje;
+          db.Characters.update(
+            {
+              nombre,
+              edad,
+              peso,
+              historia,
+              imagen_personaje: req.file && req.file.filename,
             },
-          }
-        )
-          .then(() => {
-            db.CharacterMoviePivots.destroy({
+            {
               where: {
-                id_personaje: req.params.id,
+                id: req.params.id,
               },
-            })
-              .then(() => {
-                arrayMovies.forEach((movie) => {
-                  db.CharacterMoviePivots.create({
-                    id_personaje: req.params.id,
-                    id_pelicula_serie: movie,
-                  });
-                });
-                if (req.file && req.file.filename) {
-                  fs.existsSync("./public/images/characters/", oldImage)
-                    ? fs.unlinkSync("./public/images/characters/" + oldImage)
-                    : console.log(
-                        "No se encontró la imagen que se queria eliminar"
-                      );
-                }
-                res.redirect("/characters");
+            }
+          )
+            .then(() => {
+              db.CharacterMoviePivots.destroy({
+                where: {
+                  id_personaje: req.params.id,
+                },
               })
-              .catch((error) => console.log(error));
-          })
-          .catch((error) => console.log(error));
-      })
-      .catch((error) => console.log(error));
+                .then(() => {
+                  arrayMovies.forEach((movie) => {
+                    db.CharacterMoviePivots.create({
+                      id_personaje: req.params.id,
+                      id_pelicula_serie: movie,
+                    });
+                  });
+                  if (req.file && req.file.filename) {
+                    fs.existsSync("./public/images/characters/", oldImage)
+                      ? fs.unlinkSync("./public/images/characters/" + oldImage)
+                      : console.log(
+                          "No se encontró la imagen que se queria eliminar"
+                        );
+                  }
+                  res.redirect("/characters");
+                })
+                .catch((error) => console.log(error));
+            })
+            .catch((error) => console.log(error));
+        })
+        .catch((error) => console.log(error));
+    } else {
+      db.Characters.findByPk(req.params.id)
+        .then((character) => {
+          db.Movies.findAll()
+            .then((movies) => {
+              db.CharacterMoviePivots.findAll({
+                where: {
+                  id_personaje: req.params.id,
+                },
+              })
+                .then((asociatedMovies) => {
+                  res.render("characters/characterEdit", {
+                    movies,
+                    errors: errors.mapped(),
+                    fileError: req.fileValidationError,
+                    old: req.body,
+                    character,
+                    asociatedMovies,
+                  });
+                })
+                .catch((error) => console.log(error));
+            })
+            .catch((error) => console.log(error));
+        })
+        .catch((error) => console.log(error));
+    }
   },
   characterDelete: (req, res) => {
     db.Characters.findByPk(req.params.id)

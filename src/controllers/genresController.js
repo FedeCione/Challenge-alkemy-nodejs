@@ -1,6 +1,7 @@
 const db = require("../database/models");
 const fs = require("fs");
 const { Op } = require("sequelize");
+const { validationResult } = require("express-validator");
 
 module.exports = {
   genreList: (req, res) => {
@@ -29,16 +30,23 @@ module.exports = {
     res.render("genres/genreAdd");
   },
   genreAdd: (req, res) => {
+    let errors = validationResult(req);
+
+    if (errors.isEmpty() && req.file) {
     let { nombre } = req.body;
 
     db.Genres.create({
       nombre,
-      imagen_genero: req.file.filename
+      imagen_genero: req.file && req.file.filename
     })
       .then((result) => {
         res.redirect("/genres");
       })
       .catch((error) => console.log(error));
+    } else {
+      let fileEmpty = "Debes colocar una imagen";
+      res.render("genres/genreAdd", {errors: errors.mapped(), fileEmpty, fileError: req.fileValidationError, old: req.body});
+    }
   },
   formGenreEdit: (req, res) => {
     db.Genres.findByPk(req.params.id).then((genre) => {
@@ -46,6 +54,9 @@ module.exports = {
     });
   },
   genreEdit: (req, res) => {
+    let errors = validationResult(req);
+
+    if (errors.isEmpty()) {
     let { nombre } = req.body;
     db.Genres.findByPk(req.params.id)
       .then((genre) => {
@@ -53,7 +64,7 @@ module.exports = {
         db.Genres.update(
           {
             nombre,
-            imagen_personaje: req.file && req.file.filename
+            imagen_genero: req.file && req.file.filename
           },
           {
             where: {
@@ -70,6 +81,11 @@ module.exports = {
         });
       })
       .catch((error) => console.log(error));
+    } else {
+      db.Genres.findByPk(req.params.id).then((genre) => {
+        res.render("genres/genreEdit", {errors: errors.mapped(), fileError: req.fileValidationError, genre, old: req.body});
+      });
+    }
   },
   genreDelete: (req, res) => {
     db.Genres.findByPk(req.params.id)

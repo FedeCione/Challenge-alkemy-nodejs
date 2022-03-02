@@ -18,8 +18,13 @@
             placeholder="Nombre del personaje"
             id="name"
             class="search-input"
+            value="<%= locals.old && old.nombre %>"
           />
         </label>
+        <% if (locals.errors && errors.nombre) { %>
+          <small class="text-danger"><%= errors.nombre.msg %> </small>
+       <% } %>
+
         Edad:<label for="age">
           <input
             type="number"
@@ -27,8 +32,13 @@
             placeholder="Edad del personaje"
             id="age"
             class="search-input"
+            value="<%= locals.old && old.edad %>"
           />
         </label>
+        <% if (locals.errors && errors.edad) { %>
+          <small class="text-danger"><%= errors.edad.msg %> </small>
+       <% } %>
+
         Peso:<label for="weight">
           <input
             type="number"
@@ -36,8 +46,13 @@
             placeholder="Peso del personaje"
             id="weight"
             class="search-input"
+            value="<%= locals.old && old.peso %>"
           />
         </label>
+        <% if (locals.errors && errors.peso) { %>
+          <small class="text-danger"><%= errors.peso.msg %> </small>
+       <% } %>
+
         Historia:<label for="history">
           <input
             type="text"
@@ -45,8 +60,13 @@
             placeholder="Historia del personaje"
             id="history"
             class="search-input"
+            value="<%= locals.old && old.historia %>"
           />
         </label>
+        <% if (locals.errors && errors.historia) { %>
+          <small class="text-danger"><%= errors.historia.msg %> </small>
+       <% } %>
+
         Imagen:<label for="character-image">
           <input
             type="file"
@@ -55,6 +75,13 @@
             class="search-input"
           />
         </label>
+        <% if (locals && locals.fileEmpty) { %>
+          <small class="text-danger"><%- locals.fileEmpty %></small>
+        <% } %>
+        <% if (locals && locals.fileError) { %>
+          <small class="text-danger"><%- locals.fileError %></small>
+        <% } %>
+
         Peliculas/Series Asociadas:
         <div class="checkbox-container">
           <% movies.forEach(movie => { %>

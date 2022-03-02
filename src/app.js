@@ -8,7 +8,7 @@ let dotenv = require('dotenv');
 dotenv.config()
 
 // Routers
-let indexRouter = require('./routes/index');
+let indexRouter = require('./routes/indexRoutes');
 let charactersRouter = require('./routes/charactersRoutes');
 let genresRouter = require('./routes/genresRoutes');
 let moviesRouter = require('./routes/moviesRoutes');

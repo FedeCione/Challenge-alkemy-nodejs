@@ -18,8 +18,13 @@
             name="titulo"
             placeholder="Titulo de la pelicula/serie"
             id="title"
+            value="<%= locals.old && old.titulo%>"
           />
         </label>
+        <% if (locals.errors && errors.titulo) { %>
+          <small class="text-danger"><%= errors.titulo.msg %> </small>
+        <% } %>
+
         Fecha de creacion:<label for="creation_date">
           <input
             class="search-input"
@@ -27,8 +32,13 @@
             name="fecha_creacion"
             placeholder="Fecha de creacion"
             id="creation_date"
+            value="<%= locals.old && old.fecha_creacion %>"
           />
         </label>
+        <% if (locals.errors && errors.fecha_creacion) { %>
+          <small class="text-danger"><%= errors.fecha_creacion.msg %> </small>
+        <% } %>
+
         Calificación:<label for="qualification">
           <select name="calificacion" id="qualification" class="search-input">
             <option selected hidden value="">Seleccionar calificacion</option>
@@ -39,6 +49,10 @@
             <option value="5">5</option>
           </select>
         </label>
+        <% if (locals.errors && errors.calificacion) { %>
+          <small class="text-danger"><%= errors.calificacion.msg %> </small>
+        <% } %>
+
         Genero:<label for="genre">
           <select name="id_genero" id="genre" class="search-input">
             <option selected hidden value="">Seleccionar genero</option>
@@ -47,9 +61,25 @@
             <% }) %>
           </select>
         </label>
+        <% if (locals.errors && errors.id_genero) { %>
+          <small class="text-danger"><%= errors.id_genero.msg %> </small>
+        <% } %>
+
         Imagen:<label for="movie-image">
-          <input type="file" name="imagen_pelicula_serie" id="movie-image" class="search-input"/>
+          <input
+            type="file"
+            name="imagen_pelicula_serie"
+            id="movie-image"
+            class="search-input"
+          />
         </label>
+        <% if (locals && locals.fileEmpty) { %>
+          <small class="text-danger"><%- locals.fileEmpty %></small>
+        <% } %>
+        <% if (locals && locals.fileError) { %>
+          <small class="text-danger"><%- locals.fileError %></small>
+        <% } %>
+
         Peliculas/Series Asociadas:
         <div class="checkbox-container">
           <% characters.forEach(character => { %>

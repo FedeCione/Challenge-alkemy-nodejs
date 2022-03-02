@@ -2,6 +2,7 @@ let express = require("express");
 let router = express.Router();
 let characterAvatar = require("../middlewares/characterAvatar");
 let { characterList, formCharacterAdd, characterAdd, formCharacterEdit, characterEdit, characterDelete, characterDetail, search } = require("../controllers/charactersController");
+let characterValidator = require('../validations/characterValidator');
 let verifyToken = require('../middlewares/verifyToken');
 
 // Character List
@@ -12,11 +13,11 @@ router.get("/detail/:id", verifyToken, characterDetail);
 
 // Character Add
 router.get("/add", verifyToken, formCharacterAdd);
-router.post("/add", verifyToken, characterAvatar.single("imagen_personaje"), characterAdd);
+router.post("/add", verifyToken, characterAvatar.single("imagen_personaje"), characterValidator, characterAdd);
 
 // Character Edit
 router.get("/edit/:id", verifyToken, formCharacterEdit);
-router.put("/edit/:id", verifyToken, characterAvatar.single('imagen_personaje'), characterEdit);
+router.put("/edit/:id", verifyToken, characterAvatar.single('imagen_personaje'), characterValidator, characterEdit);
 
 // Character Delete
 router.delete("/delete/:id", verifyToken, characterDelete);
