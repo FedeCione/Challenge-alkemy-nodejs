@@ -3,20 +3,20 @@
         <li>
             <a href="/"><img src="/images/disney-logo.png" alt="Disney logo" class="logo"></a>
         </li>
-        <li><a href="http://localhost:3000/characters">Lista de personajes</a></li>
-        <li><a href="http://localhost:3000/characters/add">Agregar personaje</a></li>
+        <li><a href="http://localhost:3000/characters"><i class="fa-solid fa-users"></i>Lista de personajes</a></li>
+        <li><a href="http://localhost:3000/characters/add"><i class="fa-solid fa-circle-plus"></i>Agregar personaje</a></li>
 
-        <li><a href="http://localhost:3000/movies">Lista de peliculas/series</a></li>
-        <li><a href="http://localhost:3000/movies/add">Agregar pelicula/serie</a></li>
+        <li><a href="http://localhost:3000/movies"><i class="fa-solid fa-clapperboard"></i>Lista de peliculas/series</a></li>
+        <li><a href="http://localhost:3000/movies/add"><i class="fa-solid fa-circle-plus"></i>Agregar pelicula/serie</a></li>
 
-        <li><a href="http://localhost:3000/genres">Lista de generos</a></li>
-        <li><a href="http://localhost:3000/genres/add">Agregar genero</a></li>
+        <li><a href="http://localhost:3000/genres"><i class="fa-solid fa-mars"></i>Lista de generos</a></li>
+        <li><a href="http://localhost:3000/genres/add"><i class="fa-solid fa-circle-plus"></i>Agregar genero</a></li>
 
         <% if(locals.token) { %>
-            <li><a href="http://localhost:3000/auth/logout">Logout</a></li>
+            <li><a href="http://localhost:3000/auth/logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</a></li>
         <% } else { %>
-            <li><a href="http://localhost:3000/auth/login">Login</a></li>
-            <li><a href="http://localhost:3000/auth/register">Registrarse</a></li>
+            <li><a href="http://localhost:3000/auth/login"><i class="fa-solid fa-right-to-bracket"></i>Login</a></li>
+            <li><a href="http://localhost:3000/auth/register"><i class="fa-solid fa-pen-to-square"></i>Registrarse</a></li>
         <% } %>
 
         

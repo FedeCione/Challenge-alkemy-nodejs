@@ -4,6 +4,7 @@
 
   <body>
     <%- include("../sidebar") %>
+    <h2 class="title-h2">Agregar Personaje</h2>
     <div class="div-form">
       <form
         action="/characters/add"
@@ -54,14 +55,7 @@
        <% } %>
 
         Historia:<label for="history">
-          <input
-            type="text"
-            name="historia"
-            placeholder="Historia del personaje"
-            id="history"
-            class="search-input"
-            value="<%= locals.old && old.historia %>"
-          />
+          <textarea id="history" name="historia" id="" placeholder="Historia del personaje" cols="30" rows="10" value="<%= locals.old && old.historia %>" class="search-input description"></textarea>
         </label>
         <% if (locals.errors && errors.historia) { %>
           <small class="text-danger"><%= errors.historia.msg %> </small>

@@ -4,6 +4,7 @@
 
   <body>
     <%- include("../sidebar") %>
+    <h2 class="title-h2">Editar Personaje</h2>
     <div class="div-form">
       <form
         action="/characters/edit/<%= character.id %>?_method=PUT"
@@ -54,14 +55,7 @@
         <% } %>
        
         Historia:<label for="history">
-          <input
-            type="text"
-            name="historia"
-            placeholder="Historia del personaje"
-            id="history"
-            value="<%= locals.old && old.historia ? old.historia : character.historia %>"
-            class="search-input"
-          />
+          <textarea id="history" name="historia" id="" placeholder="Historia del personaje" cols="30" rows="10" class="search-input description"><%= locals.old && old.historia ? old.historia : character.historia %></textarea>
         </label>
         <% if (locals.errors && errors.historia) { %>
           <small class="text-danger"><%= errors.historia.msg %> </small>

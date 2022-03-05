@@ -40,6 +40,7 @@ module.exports = {
 
     if (errors.isEmpty() && req.file) {
       let { nombre, edad, peso, historia, id_movies_asociated } = req.body;
+      res.send(req.body)
       let arrayMovies = [];
       if (id_movies_asociated instanceof Array) {
         id_movies_asociated.forEach((item) => {

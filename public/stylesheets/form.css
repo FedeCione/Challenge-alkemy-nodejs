@@ -1,6 +1,6 @@
 .div-form {
   position: relative;
-  left: 220px;
+  left: 260px;
   top: 10px;
   color: gainsboro;
   width: fit-content;
@@ -46,4 +46,8 @@
   margin: 0 5px 0 10px;
   position: relative;
   bottom: 6px;
+}
+
+.description {
+  height: 250px;
 }

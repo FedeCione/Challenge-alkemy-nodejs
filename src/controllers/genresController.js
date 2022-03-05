@@ -14,7 +14,6 @@ module.exports = {
   genreDetail: (req, res) => {
     db.Genres.findByPk(req.params.id)
     .then((genre) => {
-      res.send(genre)
       db.Movies.findAll({
         where: {
           id_genero: genre.id
